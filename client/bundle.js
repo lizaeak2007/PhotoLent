@@ -107,6 +107,16 @@ module.exports={
 	methods:{
 		login: function() {
 			console.log("login");
+			event.preventDefault();
+			let form = document.getElementById('login_form');
+				let promise = this.$auth.logIn(form.login.value, form.password.value);
+				promise.then(function(response){
+					console.log("Login success!");
+					this.$router.push("/feed");
+				}).catch(function(response){
+					console.log("Error");
+					console.log(response);
+				});
 		}
 	}
 }
@@ -116,7 +126,7 @@ if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('form',{attrs:{"id":"login_form"}},[_vm._m(0),_vm._v(" "),_vm._m(1),_vm._v(" "),_c('button',{staticClass:"btn btn-primary",attrs:{"type":"submit","id":"log"},on:{"click":_vm.login}},[_vm._v("Войти!")]),_vm._v(" "),_c('center',[_c('a',{staticClass:"form-link",attrs:{"href":"http://localhost:8080/#/register"}},[_vm._v("Регистрация")])])],1)])}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"login"}},[_vm._v("Логин")]),_vm._v(" "),_c('input',{staticClass:"form-control",attrs:{"type":"text","id":"login","placeholder":"Введите Логин"}})])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"password"}},[_vm._v("Пароль")]),_vm._v(" "),_c('input',{staticClass:"form-control",attrs:{"type":"password","id":"password","placeholder":"Введите пароль"}})])}]
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"login"}},[_vm._v("Логин")]),_vm._v(" "),_c('input',{staticClass:"form-control",attrs:{"type":"text","id":"login","placeholder":"Введите Логин","name":"login"}})])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"password"}},[_vm._v("Пароль")]),_vm._v(" "),_c('input',{staticClass:"form-control",attrs:{"type":"password","id":"password","placeholder":"Введите пароль","name":"password"}})])}]
 __vue__options__._scopeId = "data-v-fb189454"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -174,6 +184,23 @@ module.exports={
 	methods:{
 		register: function() {
 			console.log("register");
+			event.preventDefault();
+			let form = document.getElementById('reg_form');
+			let login = form.login.value;
+			let password = form.password.value;
+			let repeat_password = form.password_repeat.value;
+			if (password === repeat_password) {
+				let promise = this.$auth.register(login, password);
+				promise.then(function(){
+					console.log("Registration success!");
+					this.$router.push("/login");
+				}).catch(function(response){
+					console.log("Error");
+					console.log(response);
+				});
+			}else{
+				console.log("Пароли не совпадают")
+			}
 		}
 	}
 }
@@ -183,7 +210,7 @@ if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('form',{attrs:{"id":"reg_form"}},[_vm._m(0),_vm._v(" "),_vm._m(1),_vm._v(" "),_vm._m(2),_vm._v(" "),_c('button',{staticClass:"btn btn-primary",attrs:{"type":"submit","id":"reg"},on:{"click":_vm.register}},[_vm._v("Зарегистрироваться!")])])])}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"login"}},[_vm._v("Логин")]),_vm._v(" "),_c('input',{staticClass:"form-control",attrs:{"type":"text","id":"login","placeholder":"Введите Логин"}})])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"password"}},[_vm._v("Пароль")]),_vm._v(" "),_c('input',{staticClass:"form-control",attrs:{"type":"password","id":"password","placeholder":"Введите пароль"}})])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"password_repeat"}},[_vm._v("Повтор пароля")]),_vm._v(" "),_c('input',{staticClass:"form-control",attrs:{"type":"password","id":"password_repeat","placeholder":"Повторите пароль"}})])}]
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"login"}},[_vm._v("Логин")]),_vm._v(" "),_c('input',{staticClass:"form-control",attrs:{"type":"text","id":"login","placeholder":"Введите Логин","name":"login"}})])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"password"}},[_vm._v("Пароль")]),_vm._v(" "),_c('input',{staticClass:"form-control",attrs:{"type":"password","id":"password","placeholder":"Введите пароль","name":"password"}})])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"password_repeat"}},[_vm._v("Повтор пароля")]),_vm._v(" "),_c('input',{staticClass:"form-control",attrs:{"type":"password","id":"password_repeat","placeholder":"Повторите пароль","name":"repeat_password"}})])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
