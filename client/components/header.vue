@@ -32,7 +32,7 @@
 		methods:{
 			logout: function () {
 				this.$auth.logOut();
-				this.$router.push();
+				this.$router.push("/");
 			},
 			main: function () {
 				this.$router.push("/");
